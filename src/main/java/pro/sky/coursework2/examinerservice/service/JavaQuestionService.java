@@ -5,6 +5,7 @@ import pro.sky.coursework2.examinerservice.domain.Question;
 import pro.sky.coursework2.exceptions.ExceptionEmptyList;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class JavaQuestionService implements QuestionService {
@@ -16,10 +17,10 @@ public class JavaQuestionService implements QuestionService {
         if (getAll().isEmpty()) {
             throw new ExceptionEmptyList();
         }
-        List<Question> list = new ArrayList<>(questions);
         Random random = new Random();
-        int randomIndex = random.nextInt(list.size());
-        return list.get(randomIndex);
+        int randomIndex = random.nextInt(questions.size());
+        return questions.stream().skip(randomIndex)
+                .limit(1).toList().get(0);
     }
 
     public void setQuestions(Set<Question> questions) {
