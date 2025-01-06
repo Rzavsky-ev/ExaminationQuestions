@@ -1,53 +1,52 @@
 package pro.sky.coursework2.examinerservice.service;
 
 import org.springframework.stereotype.Service;
+
+
 import pro.sky.coursework2.examinerservice.domain.Question;
+import pro.sky.coursework2.examinerservice.repository.QuestionRepository;
 import pro.sky.coursework2.exceptions.ExceptionEmptyList;
 
 import java.util.*;
-import java.util.stream.Collectors;
+
 
 @Service
 public class JavaQuestionService implements QuestionService {
 
-    private Set<Question> questions = new HashSet<>();
+    private final QuestionRepository javaQuestionRepository;
 
-    @Override
-    public Question getRandomQuestion() {
-        if (getAll().isEmpty()) {
-            throw new ExceptionEmptyList();
-        }
-        Random random = new Random();
-        int randomIndex = random.nextInt(questions.size());
-        return questions.stream().skip(randomIndex)
-                .limit(1).toList().get(0);
-    }
-
-    public void setQuestions(Set<Question> questions) {
-        this.questions = questions;
+    public JavaQuestionService(QuestionRepository questionRepository) {
+        this.javaQuestionRepository = questionRepository;
     }
 
     @Override
     public Question add(String question, String answer) {
         Question addQuestion = new Question(question, answer);
-        questions.add(addQuestion);
+        javaQuestionRepository.add(addQuestion);
         return addQuestion;
     }
 
     @Override
-    public Question add(Question question) {
-        questions.add(question);
-        return question;
-    }
-
-    @Override
     public Question remove(Question question) {
-        questions.remove(question);
+        javaQuestionRepository.remove(question);
         return question;
     }
 
     @Override
-    public Collection<Question> getAll() {
-        return questions;
+    public Question getRandomQuestion() {
+        if (javaQuestionRepository.getAll().isEmpty()) {
+            throw new ExceptionEmptyList();
+        }
+        Random random = new Random();
+        int randomIndex = random.nextInt(javaQuestionRepository.getAll().size());
+        return javaQuestionRepository.getAll().stream()
+                .skip(randomIndex).limit(1)
+                .toList().get(0);
     }
+
+    @Override
+    public Collection<Question> getAllQuestion() {
+        return javaQuestionRepository.getAll();
+    }
+
 }

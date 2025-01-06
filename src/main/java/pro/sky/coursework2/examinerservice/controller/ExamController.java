@@ -18,11 +18,15 @@ public class ExamController {
         this.examinerService = examinerService;
     }
 
-    @GetMapping(path = "/get/{amount}")
-    public Collection<Question> getQuestions(@RequestParam int amount) {
-        return examinerService.getQuestions(amount);
+    @GetMapping(path = "/java/get/{amount}")
+    public Collection<Question> getJavaQuestions(@RequestParam int amount) {
+        return examinerService.getJavaQuestions(amount);
     }
 
+    @GetMapping(path = "/math/get/{amount}")
+    public Collection<Question> getMatchQuestions(@RequestParam int amount) {
+        return examinerService.getMathQuestions(amount);
+    }
 
     @ExceptionHandler(RongNumberException.class)
     public ResponseEntity<String> rongNumber(RongNumberException e) {
