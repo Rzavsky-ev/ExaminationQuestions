@@ -3,6 +3,7 @@ package pro.sky.coursework2.examinerservice.service;
 
 import org.springframework.stereotype.Service;
 import pro.sky.coursework2.examinerservice.domain.Question;
+import pro.sky.coursework2.examinerservice.repository.MathQuestionRepository;
 import pro.sky.coursework2.examinerservice.repository.QuestionRepository;
 import pro.sky.coursework2.exceptions.ExceptionEmptyList;
 import pro.sky.coursework2.exceptions.MethodNotAllowedException;
@@ -13,9 +14,9 @@ import java.util.*;
 public class MathQuestionService implements QuestionService {
 
 
-    private final QuestionRepository mathQuestionRepository;
+    private final MathQuestionRepository mathQuestionRepository;
 
-    public MathQuestionService(QuestionRepository mathQuestionRepository) {
+    public MathQuestionService(MathQuestionRepository mathQuestionRepository) {
         this.mathQuestionRepository = mathQuestionRepository;
     }
 

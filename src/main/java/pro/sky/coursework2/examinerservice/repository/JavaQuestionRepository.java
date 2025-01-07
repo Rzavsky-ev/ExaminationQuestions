@@ -9,9 +9,9 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
-@Scope("prototype")
+
 @Repository
-public class QuestionRepositoryImpl implements QuestionRepository {
+public class JavaQuestionRepository implements QuestionRepository {
 
 
     private Set<Question> questions = new HashSet<>();

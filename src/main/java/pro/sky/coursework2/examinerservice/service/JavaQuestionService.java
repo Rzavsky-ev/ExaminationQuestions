@@ -4,7 +4,7 @@ import org.springframework.stereotype.Service;
 
 
 import pro.sky.coursework2.examinerservice.domain.Question;
-import pro.sky.coursework2.examinerservice.repository.QuestionRepository;
+import pro.sky.coursework2.examinerservice.repository.JavaQuestionRepository;
 import pro.sky.coursework2.exceptions.ExceptionEmptyList;
 
 import java.util.*;
@@ -13,10 +13,10 @@ import java.util.*;
 @Service
 public class JavaQuestionService implements QuestionService {
 
-    private final QuestionRepository javaQuestionRepository;
+    private final JavaQuestionRepository javaQuestionRepository;
 
-    public JavaQuestionService(QuestionRepository questionRepository) {
-        this.javaQuestionRepository = questionRepository;
+    public JavaQuestionService(JavaQuestionRepository javaQuestionRepository) {
+        this.javaQuestionRepository = javaQuestionRepository;
     }
 
     @Override

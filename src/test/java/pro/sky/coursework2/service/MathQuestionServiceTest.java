@@ -6,7 +6,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import pro.sky.coursework2.examinerservice.domain.Question;
-import pro.sky.coursework2.examinerservice.repository.QuestionRepository;
+import pro.sky.coursework2.examinerservice.repository.MathQuestionRepository;
 import pro.sky.coursework2.examinerservice.service.MathQuestionService;
 import pro.sky.coursework2.exceptions.ExceptionEmptyList;
 
@@ -26,24 +26,24 @@ public class MathQuestionServiceTest {
     private MathQuestionService mathQuestionServiceTest;
 
     @Mock
-    private QuestionRepository questionRepositoryMock;
+    private MathQuestionRepository mathQuestionRepositoryMock;
 
     @Test
     public void addTest() {
         mathQuestionServiceTest.add("A", "B");
-        verify(questionRepositoryMock).add(mathQuestionServiceTest.add("A", "B"));
+        verify(mathQuestionRepositoryMock).add(mathQuestionServiceTest.add("A", "B"));
     }
 
     @Test
     public void removeTest() {
         Question question = new Question("A", "B");
         mathQuestionServiceTest.remove(question);
-        verify(questionRepositoryMock).remove(mathQuestionServiceTest.remove(question));
+        verify(mathQuestionRepositoryMock).remove(mathQuestionServiceTest.remove(question));
     }
 
     @Test
     public void getRandomQuestion_emptyList() {
-        when(questionRepositoryMock.getAll()).thenReturn(emptyList());
+        when(mathQuestionRepositoryMock.getAll()).thenReturn(emptyList());
         assertThrows(ExceptionEmptyList.class, () -> {
             mathQuestionServiceTest.getRandomQuestion();
         });
@@ -52,7 +52,7 @@ public class MathQuestionServiceTest {
     @Test
     public void getRandomQuestionTest() {
         Question question = new Question("A", "B");
-        when(questionRepositoryMock.getAll()).thenReturn(
+        when(mathQuestionRepositoryMock.getAll()).thenReturn(
                 new ArrayList<>(List.of(question)));
         Question result = mathQuestionServiceTest.getRandomQuestion();
         assertEquals(question, result);

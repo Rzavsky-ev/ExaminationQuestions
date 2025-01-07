@@ -15,34 +15,36 @@ import java.util.stream.IntStream;
 @Service
 public class ExaminerServiceImpl implements ExaminerService {
 
-//    private final JavaQuestionService javaQuestionService;
-//    private final MathQuestionService mathQuestionService;
+    private final JavaQuestionService javaQuestionService;
+    private final MathQuestionService mathQuestionService;
 
-    private final List<QuestionService> listQuestionService;
+    // private final List<QuestionService> listQuestionService;
 
     public ExaminerServiceImpl(JavaQuestionService javaQuestionService, MathQuestionService mathQuestionService) {
-        listQuestionService = new ArrayList<>();
-        listQuestionService.add(javaQuestionService);
-        listQuestionService.add(mathQuestionService);
+//        listQuestionService = new ArrayList<>();
+//        listQuestionService.add(javaQuestionService);
+//        listQuestionService.add(mathQuestionService);
+        this.mathQuestionService = mathQuestionService;
+        this.javaQuestionService = javaQuestionService;
     }
 
     @Override
     public List<Question> getJavaQuestions(int amount) {
-        if (amount > listQuestionService.get(1).getAllQuestion().size()) {
+        if (amount > javaQuestionService.getAllQuestion().size()) {
             throw new RongNumberException();
         }
         return IntStream.range(0, amount)
-                .mapToObj(i -> listQuestionService.get(1).getRandomQuestion())
+                .mapToObj(i -> javaQuestionService.getRandomQuestion())
                 .collect(Collectors.toList());
     }
 
     @Override
     public List<Question> getMathQuestions(int amount) {
-        if (amount > listQuestionService.get(2).getAllQuestion().size()) {
+        if (amount > mathQuestionService.getAllQuestion().size()) {
             throw new RongNumberException();
         }
         return IntStream.range(0, amount)
-                .mapToObj(i -> listQuestionService.get(2).getRandomQuestion())
+                .mapToObj(i -> mathQuestionService.getRandomQuestion())
                 .collect(Collectors.toList());
     }
 }

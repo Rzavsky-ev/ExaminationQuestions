@@ -33,7 +33,6 @@ public class ExaminerServiceImplTest {
 
     @Test
     public void getJavaQuestions_AmountWrong() {
-        int amount = 1;
         when(javaQuestionServiceTestMock.getAllQuestion()).thenReturn(emptyList());
         assertThrows(RongNumberException.class, () -> {
             examinerServiceTest.getJavaQuestions(1);
@@ -55,7 +54,6 @@ public class ExaminerServiceImplTest {
 
     @Test
     public void getMathQuestions_AmountWrong() {
-        int amount = 1;
         when(mathQuestionServiceTestMock.getAllQuestion()).thenReturn(emptyList());
         assertThrows(RongNumberException.class, () -> {
             examinerServiceTest.getMathQuestions(1);
