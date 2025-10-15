@@ -1,5 +1,6 @@
 package pro.sky.coursework2.service;
 
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -28,12 +29,14 @@ public class MathQuestionServiceTest {
     @Mock
     private MathQuestionRepository mathQuestionRepositoryMock;
 
+    @DisplayName("Должен добавлять математический вопрос")
     @Test
     public void addTest() {
         mathQuestionServiceTest.add("A", "B");
         verify(mathQuestionRepositoryMock).add(mathQuestionServiceTest.add("A", "B"));
     }
 
+    @DisplayName("Должен удалять математический вопрос")
     @Test
     public void removeTest() {
         Question question = new Question("A", "B");
@@ -41,14 +44,14 @@ public class MathQuestionServiceTest {
         verify(mathQuestionRepositoryMock).remove(mathQuestionServiceTest.remove(question));
     }
 
+    @DisplayName("Должен бросать исключение при получении вопроса из пустого списка")
     @Test
-    public void getRandomQuestion_emptyList() {
+    public void getRandomQuestionEmptyList() {
         when(mathQuestionRepositoryMock.getAll()).thenReturn(emptyList());
-        assertThrows(ExceptionEmptyList.class, () -> {
-            mathQuestionServiceTest.getRandomQuestion();
-        });
+        assertThrows(ExceptionEmptyList.class, () -> mathQuestionServiceTest.getRandomQuestion());
     }
 
+    @DisplayName("Должен возвращать случайный математический вопрос")
     @Test
     public void getRandomQuestionTest() {
         Question question = new Question("A", "B");

@@ -1,5 +1,6 @@
 package pro.sky.coursework2.service;
 
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -29,12 +30,14 @@ public class JavaQuestionServiceTest {
     @Mock
     private JavaQuestionRepository javaQuestionRepositoryMock;
 
+    @DisplayName("Добавление нового вопроса")
     @Test
     public void addTest() {
         javaQuestionServiceTest.add("A", "B");
         verify(javaQuestionRepositoryMock).add(javaQuestionServiceTest.add("A", "B"));
     }
 
+    @DisplayName("Удаление существующего вопроса")
     @Test
     public void removeTest() {
         Question question = new Question("A", "B");
@@ -42,14 +45,14 @@ public class JavaQuestionServiceTest {
         verify(javaQuestionRepositoryMock).remove(javaQuestionServiceTest.remove(question));
     }
 
+    @DisplayName("Получение случайного вопроса из пустого списка (должно бросать исключение)")
     @Test
-    public void getRandomQuestion_emptyList() {
+    public void getRandomQuestionEmptyList() {
         when(javaQuestionRepositoryMock.getAll()).thenReturn(emptyList());
-        assertThrows(ExceptionEmptyList.class, () -> {
-            javaQuestionServiceTest.getRandomQuestion();
-        });
+        assertThrows(ExceptionEmptyList.class, () -> javaQuestionServiceTest.getRandomQuestion());
     }
 
+    @DisplayName("Успешное получение случайного вопроса")
     @Test
     public void getRandomQuestionTest() {
         Question question = new Question("A", "B");
@@ -58,5 +61,4 @@ public class JavaQuestionServiceTest {
         Question result = javaQuestionServiceTest.getRandomQuestion();
         assertEquals(question, result);
     }
-
 }

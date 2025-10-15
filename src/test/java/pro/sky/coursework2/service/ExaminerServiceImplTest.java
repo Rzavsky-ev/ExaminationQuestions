@@ -1,5 +1,6 @@
 package pro.sky.coursework2.service;
 
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -9,7 +10,7 @@ import pro.sky.coursework2.examinerservice.domain.Question;
 import pro.sky.coursework2.examinerservice.service.ExaminerServiceImpl;
 import pro.sky.coursework2.examinerservice.service.JavaQuestionService;
 import pro.sky.coursework2.examinerservice.service.MathQuestionService;
-import pro.sky.coursework2.exceptions.RongNumberException;
+import pro.sky.coursework2.exceptions.WrongNumberException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,14 +32,14 @@ public class ExaminerServiceImplTest {
     @InjectMocks
     private ExaminerServiceImpl examinerServiceTest;
 
+    @DisplayName("Получение Java вопросов - некорректное количество (должно бросать исключение)")
     @Test
-    public void getJavaQuestions_AmountWrong() {
+    public void getJavaQuestionsAmountWrong() {
         when(javaQuestionServiceTestMock.getAllQuestion()).thenReturn(emptyList());
-        assertThrows(RongNumberException.class, () -> {
-            examinerServiceTest.getJavaQuestions(1);
-        });
+        assertThrows(WrongNumberException.class, () -> examinerServiceTest.getJavaQuestions(1));
     }
 
+    @DisplayName("Успешное получение Java вопросов")
     @Test
     public void getJavaQuestions() {
         int amount = 1;
@@ -52,14 +53,14 @@ public class ExaminerServiceImplTest {
 
     }
 
+    @DisplayName("Получение Math вопросов - некорректное количество (должно бросать исключение)")
     @Test
-    public void getMathQuestions_AmountWrong() {
+    public void getMathQuestionsAmountWrong() {
         when(mathQuestionServiceTestMock.getAllQuestion()).thenReturn(emptyList());
-        assertThrows(RongNumberException.class, () -> {
-            examinerServiceTest.getMathQuestions(1);
-        });
+        assertThrows(WrongNumberException.class, () -> examinerServiceTest.getMathQuestions(1));
     }
 
+    @DisplayName("Успешное получение Math вопросов")
     @Test
     public void getMathQuestions() {
         int amount = 1;
@@ -72,5 +73,4 @@ public class ExaminerServiceImplTest {
         assertEquals(question, expectedResults.get(0));
 
     }
-
 }
